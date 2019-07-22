@@ -84,15 +84,6 @@ func exitOnThrow<T>(block: () throws -> T) -> T {
 // "Commander" doesn't allow us to have no value for an `Option` and using a sentinel value to
 // indicate a lack of value isn't very Swift-y when we have `Optional`.
 
-extension Optional: CustomStringConvertible where Wrapped: ArgumentConvertible {
-  public var description: String {
-    guard let value = self else {
-      return "None"
-    }
-    return "Some(\(value))"
-  }
-}
-
 extension Optional: ArgumentConvertible where Wrapped: ArgumentConvertible {
   public init(parser: ArgumentParser) throws {
     if let wrapped = parser.shift() as? Wrapped {
